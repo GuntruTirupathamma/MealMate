@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'includes/alerts.html' %}
+
+<!-- Main Section Start -->
+<div class="main-section">
+    
+    {% include 'customers/cover.html' %}
+    <div class="page-section account-header buyer-logged-in" style="padding: 20px; background-color: #f8f9fa;">
+        <div class="container" style="max-width: 1200px; margin: auto;">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="padding: 10px;">
+                    <!-- Load the sidebar here -->
+                    {% include 'includes/c_sidebar.html' %}
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="padding: 10px;">
+                    <div class="user-dashboard loader-holder" style="background: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                        <div class="user-holder">
+                            <div class="container" style="max-width: 100%; padding: 0;">
+                                <div class="justify-content-center row">
+                                    <div class="col-md-12">
+                                        <div class="bg-white p-1" style="padding: 20px;">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h4 style="margin-top: 10px; margin-bottom: 20px;">Thank you for your order.</h4>
+                                                </div>
+                                                <div class="col-md-6 text-right" style="text-align: right;">
+                                                    <p style="margin-bottom: 5px;">{{ order.name }}</p>
+                                                    <p style="margin-bottom: 5px;">{{ order.address }}</p>
+                                                    <p style="margin-bottom: 5px;">{{ order.phone }}</p>
+                                                    <p style="margin-bottom: 5px;">{{ order.email }}</p>
+                                                </div>
+                                            </div>
+                                            <h6>Hello {{ order.name }},</h6>
+                                            <span>Review your order details below.</span>
+                                            <hr>
+                                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                                                <div>
+                                                    <span>Order Date:</span>
+                                                    <span style="font-weight: bold;">{{ order.created_at }}</span>
+                                                </div>
+                                                <div>
+                                                    <span>Order No:</span>
+                                                    <span style="font-weight: bold;">{{ order.order_number }}</span>
+                                                </div>
+                                                <div>
+                                                    <span>Payment Method:</span>
+                                                    <span style="font-weight: bold;">{{ order.payment_method }}</span>
+                                                </div>
+                                                <div>
+                                                    <span>Transaction ID:</span>
+                                                    <span style="font-weight: bold;">{{ order.payment.transaction_id }}</span>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <table class="table" style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+                                                <tbody>
+                                                    {% for item in ordered_food %}
+                                                    <tr style="border-bottom: 1px solid #ddd;">
+                                                        <td style="padding: 10px; border: 1px solid #ddd;">
+                                                            <img src="{{ item.fooditem.image.url }}" width="60" alt="Food Image">
+                                                        </td>
+                                                        <td style="padding: 10px; border: 1px solid #ddd;">
+                                                            <p style="margin: 0;"><b>{{ item.fooditem }}</b></p>
+                                                            <a style="color: #6c757d; text-decoration: none;" href="{% url 'vendor_detail' item.fooditem.vendor.vendor_slug %}">{{ item.fooditem.vendor.vendor_name }}</a>
+                                                        </td>
+                                                        <td style="padding: 10px; border: 1px solid #ddd;">{{ item.quantity }} QTY</td>
+                                                        <td style="padding: 10px; border: 1px solid #ddd;">&#8377;{{ item.fooditem.price }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            <div class="row mt-5" style="margin-top: 20px;">
+                                                <div class="col-md-6" style="text-align: center;">
+                                                    <img src="{% static 'extra-images/image_paid.png' %}" width="200">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <ul style="list-style: none; padding: 0;">
+                                                        <li style="margin-bottom: 10px;">
+                                                            Subtotal
+                                                            <span style="float: right; font-weight: bold;">&#8377;{{ subtotal }}</span>
+                                                        </li>
+                                                        {% for key, value in tax_data.items %}
+                                                        {% for i, j in value.items %}
+                                                        <li style="margin-bottom: 10px;">
+                                                            {{ key }} <small>({{ i }}%)</small>
+                                                            <span style="float: right; font-weight: bold;">₹{{ j }}</span>
+                                                        </li>
+                                                        {% endfor %}
+                                                        {% endfor %}
+                                                        <li style="font-weight: bold; margin-top: 10px;">
+                                                            TOTAL
+                                                            <span style="float: right;">&#8377;{{ order.total }}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                                                <div>
+                                                    <span style="font-weight: bold;">Thanks for ordering with us.</span>
+                                                    <br>
+                                                    <span>FoodOnline Team</span>
+                                                </div>
+                                                <div style="text-align: right;">
+                                                    <span style="font-weight: bold;">Need help?</span>
+                                                    <br>
+                                                    <span>Call - +91 0011223344</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!-- Main Section End -->
+
+
+{% endblock %}

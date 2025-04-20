@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'includes/alerts.html' %}
+
+<!-- Main Section Start -->
+<div class="main-section">
+    
+    <div style='margin-top:80px'></div>
+    <div class="page-section account-header buyer-logged-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <!-- Load the sidebar here -->
+                    {% include 'includes/v_sidebar.html' %}
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <div class="user-dashboard loader-holder">
+                        <div class="user-holder">
+                            
+                            <h5 class="text-uppercase">My Orders</h5>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="user-orders-list">
+                                        <div class="responsive-table">
+                                            
+
+
+                                              <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 16px; text-align: left;">
+                                                <thead>
+                                                    <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                                                        <th style="padding: 12px; border: 1px solid #dee2e6; font-weight: bold;">Order Number</th>
+                                                        <th style="padding: 12px; border: 1px solid #dee2e6; font-weight: bold;">Total</th>
+                                                        <th style="padding: 12px; border: 1px solid #dee2e6; font-weight: bold;">Date</th>
+                                                        <th style="padding: 12px; border: 1px solid #dee2e6; font-weight: bold;">Action</th>
+                                                    </tr><br><br>
+                                                </thead>
+                                                <tbody>
+                                            
+                                                    {% for order in orders %}
+<tr style="border-bottom: 1px solid #dee2e6; transition: background-color 0.3s; color: black; font-weight: normal;">
+    <td style="padding: 12px; border: 1px solid #dee2e6; color: black; font-weight: normal;">{{ order.order_number }}</td>
+    <td style="padding: 12px; border: 1px solid #dee2e6; color: black; font-weight: normal;">&#8377;{{ order.total }}</td>
+    <td style="padding: 12px; border: 1px solid #dee2e6; color: black; font-weight: normal;">{{ order.created_at }}</td>
+    <td style="padding: 12px; border: 1px solid #dee2e6; color: black; font-weight: normal;">
+        <a href="{% url 'vendor_order_detail' order.order_number %}" class="btn btn-danger" style="padding: 8px 16px; color: white; background-color: #dc3545; text-decoration: none; border-radius: 5px; font-size: 14px;">Details</a>
+    </td>
+</tr>
+{% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                            
+
+                                        </div>												
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main Section End -->
+
+
+{% endblock %}
+

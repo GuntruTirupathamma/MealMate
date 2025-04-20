@@ -1,0 +1,16 @@
+{% autoescape off %}
+Hi {{ user.first_name|default:"User" }},
+
+Click on the link below to confirm your registration:
+<a href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}">
+    Confirm Registration
+</a>
+
+If the above link doesn't work, copy and paste the following URL into your browser:
+https://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+Thank you for registering!
+
+Best regards,  
+The Team
+{% endautoescape %}
